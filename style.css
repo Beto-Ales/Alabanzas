@@ -5,3 +5,23 @@ body{
 h1{
     font-size: 5em;
 }
+
+.dot{
+    height: 1em;
+    width: 1em;
+    clip-path: circle(50%);
+    background-color: #bbb;
+    display: inline-block;
+    margin: 0 1em;
+}
+
+.colored{
+    background-color: coral;
+}
+
+#progressDots{
+    position: absolute;
+    top: 38em;    
+    width: 100%;
+    text-align: center;
+}

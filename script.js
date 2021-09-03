@@ -8,6 +8,9 @@ let progress = 0;
 // set songs index
 let song = 0;
 
+// div container for dots indicating progress
+const progressDots = document.querySelector('#progressDots');
+
 
 
 
@@ -82,7 +85,6 @@ su dulce paz me da.<br/>
 </h1>`);
 
 granGozoHayEnMiAlmaHoy.push(`<h1>
-Coro<br/>
 Brilla el sol de Cristo en mi alma;<br/>
 cada día voy feliz así.<br/>
 Su faz sonriente al contemplar,<br/>
@@ -97,7 +99,6 @@ y salvo por la fe.<br/>
 </h1>`);
 
 granGozoHayEnMiAlmaHoy.push(`<h1>
-Coro<br/>
 Brilla el sol de Cristo en mi alma;<br/>
 cada día voy feliz así.<br/>
 Su faz sonriente al contemplar,<br/>
@@ -112,7 +113,6 @@ Jesús me libertó.<br/>
 </h1>`);
 
 granGozoHayEnMiAlmaHoy.push(`<h1>
-Coro<br/>
 Brilla el sol de Cristo en mi alma;<br/>
 cada día voy feliz así.<br/>
 Su faz sonriente al contemplar,<br/>
@@ -127,7 +127,6 @@ hay gozo en su luz.<br/>
 </h1>`);
 
 granGozoHayEnMiAlmaHoy.push(`<h1>
-Coro<br/>
 Brilla el sol de Cristo en mi alma;<br/>
 cada día voy feliz así.<br/>
 Su faz sonriente al contemplar,<br/>
@@ -489,36 +488,87 @@ songs.push(padreDelCieloTeAdoramos);
 // load first song
 document.getElementById("demo").innerHTML = todasLasPromesas[song];
 
+// add dots as a sign of song progress
+for(let i = 0; i < todasLasPromesas.length; ++i ){
+    let dot = document.createElement("span");
+    dot.setAttribute("class", `dot dot${i}`);
+    progressDots.appendChild(dot);    
+}
+
+// color the first dot
+const colored = document.querySelector(`.dot${progress}`);
+colored.classList.toggle("colored");
+
 
 
 
 // changing songs
 
     document.addEventListener('keydown', function (event) {
-        if (event.keyCode === 39) { // arrowRight
+        if (event.keyCode === 39 && songs.length - 1 > song) { // arrowRight
            
             progress = 0;
-            console.log(progress);
-            
-            songs.length - 1 > song && ++song;
 
+            // songs.length - 1 > song && ++song;
+            ++song;
             
             document.getElementById("demo").innerHTML = songs[song][progress];
+
+
+
+            // remove previous dots
+            for(let i = 0; i < songs[song - 1].length; ++i ){
+                progressDots.removeChild(progressDots.childNodes[0]);    
+            }
+
+
             
+            // add dots as a sign of song progress
+            for(let i = 0; i < songs[song].length; ++i ){
+                let dot = document.createElement("span");
+                dot.setAttribute("class", `dot dot${i}`);
+                progressDots.appendChild(dot);
+            }
+
+            // color the first dot
+            const colored = document.querySelector(`.dot${progress}`);
+            colored.classList.toggle("colored");
+
 
         }    
     });
 
     document.addEventListener('keydown', function (event) {
-        if (event.keyCode === 37) { // arrowLeft
+        if (event.keyCode === 37 && song > 0) { // arrowLeft
            
             progress = 0;
 
             // progress can't be less than 0
             // -----------------------------
-            song > 0 && --song;            
+            // song > 0 && --song;
+            --song;
             
-            document.getElementById("demo").innerHTML = songs[song][progress];            
+            document.getElementById("demo").innerHTML = songs[song][progress];     
+            
+            
+            
+            // remove previous dots
+            for(let i = 0; i < songs[song + 1].length; ++i ){
+                progressDots.removeChild(progressDots.childNodes[0]);    
+            }
+
+
+            
+            // add dots as a sign of song progress
+            for(let i = 0; i < songs[song].length; ++i ){
+                let dot = document.createElement("span");
+                dot.setAttribute("class", `dot dot${i}`);
+                progressDots.appendChild(dot);
+            }
+
+            // color the first dot
+            const colored = document.querySelector(`.dot${progress}`);
+            colored.classList.toggle("colored");
 
         }    
     });
@@ -528,18 +578,27 @@ document.getElementById("demo").innerHTML = todasLasPromesas[song];
 // manage songs and progress
 // -------------------------
 document.addEventListener('keydown', function (event) {
-    if (event.keyCode === 40) { // arrowDown
+    if (event.keyCode === 40 && songs[song].length - 1 > progress) { // arrowDown
        
-        songs[song].length - 1 > progress && ++progress;       
+        // songs[song].length - 1 > progress && ++progress;       
+        ++progress;
         document.getElementById("demo").innerHTML = songs[song][progress];
         
+        // color the dots for progress
+        const colored = document.querySelector(`.dot${progress}`);
+        songs[song].length > progress && colored.classList.toggle("colored");
     }    
   });
 
   document.addEventListener('keydown', function (event) {
-    if (event.keyCode === 38) { // arrowUp
+    if (event.keyCode === 38 && progress > 0) { // arrowUp
                 
-        progress > 0 && --progress;
+        // color the dots for progress
+        const colored = document.querySelector(`.dot${progress}`);
+        songs[song].length > progress && colored.classList.toggle("colored");
+
+        // progress > 0 && --progress;
+        --progress;
         document.getElementById("demo").innerHTML = songs[song][progress];
         
     }
