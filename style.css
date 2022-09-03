@@ -3,7 +3,8 @@ body{
 }
 
 h1{
-    font-size: 5em;
+    /* font-size: 5em; */
+    font-size: 5vw;
 }
 
 .dot{
@@ -21,7 +22,23 @@ h1{
 
 #progressDots{
     position: absolute;
-    top: 40em;    
-    width: 100%;
+    top: 39em;    
+    width: 99%;
     text-align: center;
+}
+
+#key {
+    /* background-color: bisque; */
+    /* width: 2em;
+    height: 2em;
+    margin: auto; */
+    color: #ff5722;
+    font-weight: bolder;
+    font-size: 3vw;
+}
+
+.showHide {
+    /* display: none; */
+    /* visibility: visible !important; */
+    visibility: hidden;
 }
