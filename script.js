@@ -1,3 +1,26 @@
+// variable to choose between different playlists
+// let songsList = songsBook
+
+
+// --------------------------------------------
+// songs book selector obj with setter & getter
+//      const songsBookPicker = {
+
+//        list: songsBook,
+
+//        set selectSongBook(songBook) {
+//          this.list = songBook
+//        },
+
+//        get list() {return this.list}
+
+//      }
+// --------------------------------------------
+
+
+
+
+
 // songsBook obj (dictionary)
 const songsBook = {
     
@@ -859,11 +882,138 @@ const songsBook = {
         'Astro de eterno fulgor, astro de eterno fulgor.\n' +
       '</h1>'
     ]
-  }
+  },
+  27: {
+    key: 'D',
+    lyrics: [
+      `<h1>
+        Dios está aquí,<br/>
+        tan cierto como el aire que respiro,<br/>
+        tan cierto como la mañana se levanta,<br/>
+        tan cierto como que le canto y me puede oír.
+      </h1>`,
+      `<h1>
+        Dios está aquí,<br/>
+        tan cierto como el canto de las aves,<br/>
+        tan cierto como la frescura del atardecer,<br/>
+        tan cierto como que me habla y le puedo oír.
+      </h1>`,
+      `<h1>
+        Dios está en mí,<br/>
+        tan cierto como que mi alma rescató ,<br/>
+        tan cierto como que su amor <br/>
+        y gracia me salvó.<br/>
+         /// Tan cierto como que mi vida ///<br/>
+        transformó.
+      </h1>`,
+    ]
+  },
+  28: {
+    key: 'A',
+    lyrics: [
+      `<h1>
+        Quién aviva el fuego de mil soles con poder<br/>
+        Que en los cielos arden? Nadie como Él<br/>
+        Nuestro Dios
+      </h1>`,
+
+      `<h1>
+        ¿Quién gobierna el mundo?<br/>
+        ¿Quién levanta y quita al rey<br/>
+        Vence a sus rivales? Nadie como Él<br/>
+        Nuestro Dios, nuestro Dios
+      </h1>`,
+
+      `<h1>
+        Santo, solo Tú eres santo<br/>
+        Sin igual en gloria, Santo Dios
+      </h1>`,
+
+      `<h1>
+        ¿Quién bajó a salvarnos,<br/>
+        detractores de Su Ley?<br/>
+        En Su amor nos llama; nadie como Él<br/>
+        Nuestro Dios, nuestro Dios
+      </h1>`,
+
+      `<h1>
+        Santo, solo Tú eres santo<br/>
+        Sin igual en gloria, incomparable<br/>
+        Digno, solo Tú eres digno<br/>
+        Solo a Ti adoramos, santo Dios
+      </h1>`,
+
+      `<h1>
+        Al que en el trono está<br/>
+        Él que era y pronto vendrá<br/>
+        Y al Cordero inmolado gloria
+      </h1>`,
+
+      `<h1>
+        Santo, solo Tú eres santo<br/>
+        Sin igual en gloria, incomparable<br/>
+        Digno, solo Tú eres digno<br/>
+        Solo a Ti adoramos, santo Dios
+      </h1>`,
+    ]
+  },
+  29: {
+    key: '',
+    lyrics: [
+      `<h1>
+        Las cadenas de la muerte me quitó<br/>
+        Para mí ya no hay condenación<br/>
+        Hay libertad, libertad<br/>
+        Siendo esclavo del pecado me libró<br/>
+        En la cruz compró mi redención<br/>
+        Y libertad, libertad
+      </h1>`,
+      `<h1>
+        Rompió mis cadenas, me dió vida nueva<br/>
+        Y al fondo del mar echó mi maldad<br/>
+        Lavó mis pecados y me ha perdonado<br/>
+        Sólo en el nombre de Jesús<br/>
+        Hay libertad
+      </h1>`,
+      `<h1>
+        Yo proclamo al que en la cruz por mi murió<br/>
+        Y cambió mi duro corazón<br/>
+        Por libertad, libertad<br/>
+        El poder de su evangelio me salvó<br/>
+        Y no me avergüenzo del Señor<br/>
+        Mi libertad, libertad
+      </h1>`,
+      `<h1>
+        Rompió mis cadenas, me dió vida nueva<br/>
+        Y al fondo del mar echó mi maldad<br/>
+        Lavó mis pecados y me ha perdonado<br/>
+        Sólo en el nombre de Jesús<br/>
+        Hay libertad
+      </h1>`,
+      `<h1>
+        Al que el Hijo hace libre<br/>
+        Es libre en verdad        
+      </h1>`,
+      `<h1>
+        Rompió mis cadenas, me dió vida nueva<br/>
+        Y al fondo del mar echó mi maldad<br/>
+        Lavó mis pecados y me ha perdonado<br/>
+        Sólo en el nombre de Jesús
+      </h1>`,
+      `<h1>
+        Rompió mis cadenas, me dió vida nueva<br/>
+        Y al fondo del mar echó mi maldad<br/>
+        Lavó mis pecados y me ha perdonado<br/>
+        Sólo en el nombre de Jesús<br/>
+        Hay libertad
+      </h1>`,
+    ]
+  },
+  30: {}
 }
 
 // variable iterate lyrics[] to show different verses of the song
-let progress = 0;
+let verse = 0;
 
 // variable indexes differents songs
 let song = 1;
@@ -877,13 +1027,13 @@ const keyContainer = document.querySelector('#key')
 // container for the verse of the song
 const verseContainer = keyContainer.nextElementSibling
 
-// div container for dots indicating progress
-const progressDotsContainer = verseContainer.nextElementSibling
+// div container for dots indicating verse
+const verseDotsContainer = verseContainer.nextElementSibling
 
 // -----------------------------------
 // containers order in html matters!!!
 
-// progressDots
+
 
 
 
@@ -891,59 +1041,80 @@ const progressDotsContainer = verseContainer.nextElementSibling
 // programm starts here
 // --------------------
 
+
+
+
+
+
 // start refactoring function for seting the firs song
 // ---------------------------------------------------
 
-const dots = (songsBook) => {
+const dots = (songsBook, changeSong, keyUp) => {
 
-  // set dots for the song progress
-  for(let i = 0; i < songsBook[1]['lyrics'].length; ++i ){
-      let dot = document.createElement("span");
-      dot.setAttribute("class", `dot dot${i}`);
-      progressDotsContainer.appendChild(dot);    
+  if (changeSong) {
+   
+    // remove previous dots
+    while (verseDotsContainer.firstChild) {
+      verseDotsContainer.removeChild(verseDotsContainer.firstChild);
+    }
+
+    // set dots for the song verse
+    for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
+        let dot = document.createElement("span")
+        dot.setAttribute("class", `dot dot${i}`)
+        verseDotsContainer.appendChild(dot)
+    }
+    
   }
 
-  // color the first dot
-  const colored = document.querySelector(`.dot${0}`);
-  colored.classList.toggle("colored");
+  // color the dot
+  // const colored = document.querySelector(`.dot${internalVerse}`)
+  const colored = document.querySelector(keyUp ? `.dot${verse + 1}` : `.dot${verse}`)
+  colored.classList.toggle("colored")
 
 }
 
-const loadLyrics = (songsBook) => {
+const loadLyrics = (songsBook, changeSong, keyUp) => {
 
   // set first song
-  verseContainer.innerHTML = songsBook[song]['lyrics'][progress]
+  verseContainer.innerHTML = songsBook[song]['lyrics'][verse]
 
   // set key of the song
   keyContainer.innerHTML = songsBook[song]['key']
 
-  // set progress dots
-  dots(songsBook)
+  // set verse dots
+  dots(songsBook, changeSong, keyUp)
 
 }
 
 // check if should be load the songsBook or the playlist obj ***
-loadLyrics(songsBook)
-
-// ---
-// load first song
-// target lyrics container & inject 1st song 1st verse
-//    verseContainer.innerHTML = songsBook[1]['lyrics'][progress];
-// target key song container & inject the key of the song. it will be hidden until 'k' pressed
-//    keyContainer.innerHTML = songsBook[1]['key'];
-// ---
+loadLyrics(songsBook, true, false)
 
 
-// add dots as a sign of song progress
-//    for(let i = 0; i < songsBook[1]['lyrics'].length; ++i ){
-//        let dot = document.createElement("span");
-//        dot.setAttribute("class", `dot dot${i}`);
-//        progressDotsContainer.appendChild(dot);    
-//    }
+const oldCode = {
 
-// color the first dot
-//    const colored = document.querySelector(`.dot${progress}`);
-//    colored.classList.toggle("colored");
+  // ---
+  // load first song
+  // target lyrics container & inject 1st song 1st verse
+  //    verseContainer.innerHTML = songsBook[1]['lyrics'][verse];
+  // target key song container & inject the key of the song. it will be hidden until 'k' pressed
+  //    keyContainer.innerHTML = songsBook[1]['key'];
+  // ---
+
+
+  // add dots as a sign of song verse
+  //    for(let i = 0; i < songsBook[1]['lyrics'].length; ++i ){
+  //        let dot = document.createElement("span");
+  //        dot.setAttribute("class", `dot dot${i}`);
+  //        verseDotsContainer.appendChild(dot);    
+  //    }
+
+  // color the first dot
+  //    const colored = document.querySelector(`.dot${verse}`);
+  //    colored.classList.toggle("colored");
+
+}
+
 
 // ---------------------------------------------------
 // start refactoring function for seting the firs song
@@ -955,109 +1126,187 @@ loadLyrics(songsBook)
 
 
 
-// changing songs
-
-    document.addEventListener('keydown', function (event) {
-
-        if (event.key === 'ArrowRight' && Object.keys(songsBook).length - 1 > song) { // arrowRight
-           
-            progress = 0;
-            
-            ++song;
-            
-            verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
-            keyContainer.innerHTML = songsBook[song]['key'];
-
-            // remove previous dots
-            for(let i = 0; i < songsBook[song - 1]['lyrics'].length; ++i ){
-                progressDotsContainer.removeChild(progressDotsContainer.childNodes[0]);
-            }
-            
-            // add dots as a sign of song progress
-            for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
-                let dot = document.createElement("span");
-                dot.setAttribute("class", `dot dot${i}`);
-                progressDotsContainer.appendChild(dot);
-            }
-
-            // color the first dot
-            const colored = document.querySelector(`.dot${progress}`);
-            colored.classList.toggle("colored");
-
-        }
-
-    });
-
-    document.addEventListener('keydown', function (event) {
-
-        if (event.key === 'ArrowLeft' && song > 1) { // arrowLeft
-           
-            progress = 0;
-
-            // progress can't be less than 0
-            // -----------------------------
-            
-            --song;
-            
-            verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
-            keyContainer.innerHTML = songsBook[song]['key'];            
-            
-            // remove previous dots
-            for(let i = 0; i < songsBook[song + 1]['lyrics'].length; ++i ){
-                progressDotsContainer.removeChild(progressDotsContainer.childNodes[0]);
-            }
-            
-            // add dots as a sign of song progress
-            for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
-                let dot = document.createElement("span");
-                dot.setAttribute("class", `dot dot${i}`);
-                progressDotsContainer.appendChild(dot);
-            }
-
-            // color the first dot
-            const colored = document.querySelector(`.dot${progress}`);
-            colored.classList.toggle("colored");
-
-        }
-
-    });
+// start refactoring function for changing songs
+// ---------------------------------------------
 
 
+const arrowRight = () => {
 
-// manage songs and progress
-// -------------------------
-document.addEventListener('keydown', function (event) {
+  if (event.key === 'ArrowRight' && Object.keys(songsBook).length - 1 > song) {
+  
+    // start a new song with the first verse
+    verse = 0
 
-    if (event.key === 'ArrowDown' && songsBook[song]['lyrics'].length - 1 > progress) { // arrowDown
+    // next song
+    ++song
+
+    loadLyrics(songsBook, true, false)
     
-        ++progress;
-        verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
-        keyContainer.innerHTML = songsBook[song]['key'];
+  }
+
+}
+
+const arrowLeft = () => {
+
+  if (event.key === 'ArrowLeft' && song > 1) {
+    
+    // start a new song with the first verse
+    verse = 0
+    
+    // prevoius song
+    --song
+
+    loadLyrics(songsBook, true, false)
+
+  }
+
+}
+
+const arrowDown = () => {
+
+  if (event.key === 'ArrowDown' && songsBook[song]['lyrics'].length - 1 > verse) {
+    
+    // next verse
+    ++verse
+
+    loadLyrics(songsBook, false, false)
+
+  }
+
+}
+
+const arrowUp = () => {
+
+  if (event.key === 'ArrowUp' && verse > 0) {
+    
+    // previous verse
+    --verse
+
+    loadLyrics(songsBook, false, true)
+
+  }
+  
+}
+
+document.addEventListener('keydown', arrowRight)
+document.addEventListener('keydown', arrowLeft)
+document.addEventListener('keydown', arrowDown)
+document.addEventListener('keydown', arrowUp)
+
+
+
+
+
+// ---------------------------------------------
+// start refactoring function for changing songs
+
+
+const oldCodeB = {
+  // document.addEventListener('keydown', function (event) {
+
+    //     if (event.key === 'ArrowRight' && Object.keys(songsBook).length - 1 > song) { // arrowRight
+           
+    //         verse = 0;
+            
+    //         ++song;
+            
+    //         verseContainer.innerHTML = songsBook[song]['lyrics'][verse];
+    //         keyContainer.innerHTML = songsBook[song]['key'];
+
+    //         // remove previous dots
+    //         while (verseDotsContainer.firstChild) {
+    //           verseDotsContainer.removeChild(verseDotsContainer.firstChild);
+    //         }
+            
+    //         // add dots as a sign of song verse
+    //         for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
+    //             let dot = document.createElement("span");
+    //             dot.setAttribute("class", `dot dot${i}`);
+    //             verseDotsContainer.appendChild(dot);
+    //         }
+
+    //         // color the first dot
+    //         const colored = document.querySelector(`.dot${verse}`);
+    //         colored.classList.toggle("colored");
+
+    //     }
+
+    // });
+
+    // -----------------------------------
+
+    // document.addEventListener('keydown', function (event) {
+
+    //     if (event.key === 'ArrowLeft' && song > 1) { // arrowLeft
+           
+    //         verse = 0;
+
+    //         // verse can't be less than 0
+    //         // -----------------------------
+            
+    //         --song;
+            
+    //         verseContainer.innerHTML = songsBook[song]['lyrics'][verse];
+    //         keyContainer.innerHTML = songsBook[song]['key'];            
+            
+    //         // remove previous dots
+    //         while (verseDotsContainer.firstChild) {
+    //           verseDotsContainer.removeChild(verseDotsContainer.firstChild);
+    //         }
+            
+    //         // add dots as a sign of song verse
+    //         for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
+    //             let dot = document.createElement("span");
+    //             dot.setAttribute("class", `dot dot${i}`);
+    //             verseDotsContainer.appendChild(dot);
+    //         }
+
+    //         // color the first dot
+    //         const colored = document.querySelector(`.dot${verse}`);
+    //         colored.classList.toggle("colored");
+
+    //     }
+
+    // });
+
+    // -----------------------------------------------
+
+    // manage songs and verse
+// -------------------------
+// document.addEventListener('keydown', function (event) {
+
+//     if (event.key === 'ArrowDown' && songsBook[song]['lyrics'].length - 1 > verse) { // arrowDown
+    
+//         ++verse;
+//         verseContainer.innerHTML = songsBook[song]['lyrics'][verse];
+//         keyContainer.innerHTML = songsBook[song]['key'];
         
-        // color the dots for progress
-        const colored = document.querySelector(`.dot${progress}`);
-        songsBook[song]['lyrics'].length > progress && colored.classList.toggle("colored");
+//         // color the dots for verse
+//         const colored = document.querySelector(`.dot${verse}`);
+//         songsBook[song]['lyrics'].length > verse && colored.classList.toggle("colored");
 
-    }
+//     }
 
-  });
+//   });
 
-  document.addEventListener('keydown', function (event) {
+//   document.addEventListener('keydown', function (event) {
 
-    if (event.key === 'ArrowUp' && progress > 0) { // arrowUp
+//     if (event.key === 'ArrowUp' && verse > 0) { // arrowUp
                 
-        // color the dots for progress
-        const colored = document.querySelector(`.dot${progress}`);
-        songsBook[song]['lyrics'].length > progress && colored.classList.toggle("colored");
+//         // color the dots for verse
+//         const colored = document.querySelector(`.dot${verse}`);
+//         songsBook[song]['lyrics'].length > verse && colored.classList.toggle("colored");
 
-        // progress > 0 && --progress;
-        --progress;
-        verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
-        keyContainer.innerHTML = songsBook[song]['key'];
+//         // verse > 0 && --verse;
+//         --verse;
+//         verseContainer.innerHTML = songsBook[song]['lyrics'][verse];
+//         keyContainer.innerHTML = songsBook[song]['key'];
         
-    }
+//     }
 
-  });
+//   });
+}
+
 
   document.addEventListener('keydown', function (event) {
 
@@ -1069,6 +1318,7 @@ document.addEventListener('keydown', function (event) {
     }
     
   });
+  
 
   
 
