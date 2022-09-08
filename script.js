@@ -1,5 +1,5 @@
-// songs obj (dictionary)
-const songs = {
+// songsBook obj (dictionary)
+const songsBook = {
     
   1: {
     key: 'A',
@@ -868,6 +868,9 @@ let progress = 0;
 // variable indexes differents songs
 let song = 1;
 
+// containers order in html matters!!!
+// -----------------------------------
+
 // container for the key of the song
 const keyContainer = document.querySelector('#key')
 
@@ -876,6 +879,10 @@ const verseContainer = keyContainer.nextElementSibling
 
 // div container for dots indicating progress
 const progressDotsContainer = verseContainer.nextElementSibling
+
+// -----------------------------------
+// containers order in html matters!!!
+
 // progressDots
 
 
@@ -884,46 +891,90 @@ const progressDotsContainer = verseContainer.nextElementSibling
 // programm starts here
 // --------------------
 
+// start refactoring function for seting the firs song
+// ---------------------------------------------------
+
+const dots = (songsBook) => {
+
+  // set dots for the song progress
+  for(let i = 0; i < songsBook[1]['lyrics'].length; ++i ){
+      let dot = document.createElement("span");
+      dot.setAttribute("class", `dot dot${i}`);
+      progressDotsContainer.appendChild(dot);    
+  }
+
+  // color the first dot
+  const colored = document.querySelector(`.dot${0}`);
+  colored.classList.toggle("colored");
+
+}
+
+const loadLyrics = (songsBook) => {
+
+  // set first song
+  verseContainer.innerHTML = songsBook[song]['lyrics'][progress]
+
+  // set key of the song
+  keyContainer.innerHTML = songsBook[song]['key']
+
+  // set progress dots
+  dots(songsBook)
+
+}
+
+// check if should be load the songsBook or the playlist obj ***
+loadLyrics(songsBook)
+
 // ---
 // load first song
 // target lyrics container & inject 1st song 1st verse
-verseContainer.innerHTML = songs[1]['lyrics'][progress];
+//    verseContainer.innerHTML = songsBook[1]['lyrics'][progress];
 // target key song container & inject the key of the song. it will be hidden until 'k' pressed
-keyContainer.innerHTML = songs[1]['key'];
+//    keyContainer.innerHTML = songsBook[1]['key'];
 // ---
 
 
 // add dots as a sign of song progress
-for(let i = 0; i < songs[1]['lyrics'].length; ++i ){
-    let dot = document.createElement("span");
-    dot.setAttribute("class", `dot dot${i}`);
-    progressDotsContainer.appendChild(dot);    
-}
+//    for(let i = 0; i < songsBook[1]['lyrics'].length; ++i ){
+//        let dot = document.createElement("span");
+//        dot.setAttribute("class", `dot dot${i}`);
+//        progressDotsContainer.appendChild(dot);    
+//    }
 
 // color the first dot
-const colored = document.querySelector(`.dot${progress}`);
-colored.classList.toggle("colored");
+//    const colored = document.querySelector(`.dot${progress}`);
+//    colored.classList.toggle("colored");
+
+// ---------------------------------------------------
+// start refactoring function for seting the firs song
+
+
+
+
+
+
+
 
 // changing songs
 
     document.addEventListener('keydown', function (event) {
 
-        if (event.key === 'ArrowRight' && Object.keys(songs).length - 1 > song) { // arrowRight
+        if (event.key === 'ArrowRight' && Object.keys(songsBook).length - 1 > song) { // arrowRight
            
             progress = 0;
             
             ++song;
             
-            verseContainer.innerHTML = songs[song]['lyrics'][progress];
-            keyContainer.innerHTML = songs[song]['key'];
+            verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
+            keyContainer.innerHTML = songsBook[song]['key'];
 
             // remove previous dots
-            for(let i = 0; i < songs[song - 1]['lyrics'].length; ++i ){
+            for(let i = 0; i < songsBook[song - 1]['lyrics'].length; ++i ){
                 progressDotsContainer.removeChild(progressDotsContainer.childNodes[0]);
             }
             
             // add dots as a sign of song progress
-            for(let i = 0; i < songs[song]['lyrics'].length; ++i ){
+            for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
                 let dot = document.createElement("span");
                 dot.setAttribute("class", `dot dot${i}`);
                 progressDotsContainer.appendChild(dot);
@@ -948,16 +999,16 @@ colored.classList.toggle("colored");
             
             --song;
             
-            verseContainer.innerHTML = songs[song]['lyrics'][progress];
-            keyContainer.innerHTML = songs[song]['key'];            
+            verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
+            keyContainer.innerHTML = songsBook[song]['key'];            
             
             // remove previous dots
-            for(let i = 0; i < songs[song + 1]['lyrics'].length; ++i ){
+            for(let i = 0; i < songsBook[song + 1]['lyrics'].length; ++i ){
                 progressDotsContainer.removeChild(progressDotsContainer.childNodes[0]);
             }
             
             // add dots as a sign of song progress
-            for(let i = 0; i < songs[song]['lyrics'].length; ++i ){
+            for(let i = 0; i < songsBook[song]['lyrics'].length; ++i ){
                 let dot = document.createElement("span");
                 dot.setAttribute("class", `dot dot${i}`);
                 progressDotsContainer.appendChild(dot);
@@ -977,15 +1028,15 @@ colored.classList.toggle("colored");
 // -------------------------
 document.addEventListener('keydown', function (event) {
 
-    if (event.key === 'ArrowDown' && songs[song]['lyrics'].length - 1 > progress) { // arrowDown
+    if (event.key === 'ArrowDown' && songsBook[song]['lyrics'].length - 1 > progress) { // arrowDown
     
         ++progress;
-        verseContainer.innerHTML = songs[song]['lyrics'][progress];
-        keyContainer.innerHTML = songs[song]['key'];
+        verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
+        keyContainer.innerHTML = songsBook[song]['key'];
         
         // color the dots for progress
         const colored = document.querySelector(`.dot${progress}`);
-        songs[song]['lyrics'].length > progress && colored.classList.toggle("colored");
+        songsBook[song]['lyrics'].length > progress && colored.classList.toggle("colored");
 
     }
 
@@ -997,12 +1048,12 @@ document.addEventListener('keydown', function (event) {
                 
         // color the dots for progress
         const colored = document.querySelector(`.dot${progress}`);
-        songs[song]['lyrics'].length > progress && colored.classList.toggle("colored");
+        songsBook[song]['lyrics'].length > progress && colored.classList.toggle("colored");
 
         // progress > 0 && --progress;
         --progress;
-        verseContainer.innerHTML = songs[song]['lyrics'][progress];
-        keyContainer.innerHTML = songs[song]['key'];
+        verseContainer.innerHTML = songsBook[song]['lyrics'][progress];
+        keyContainer.innerHTML = songsBook[song]['key'];
         
     }
 
@@ -1023,7 +1074,7 @@ document.addEventListener('keydown', function (event) {
 
 // -------------------
 // song ordered by key
-// console.log(songs[1]['key'], songs[2]['key'], songs[3]['key']);
+// console.log(songsBook[1]['key'], songsBook[2]['key'], songsBook[3]['key']);
 // ---------------------------------------------------------------
 
 //   info
