@@ -174,4 +174,84 @@ const loadLyrics = (songsBook, changeSong, keyUp, verseContainer, song, verse, k
 
 }
 
-export { loadLyrics }
+const arrowRight = (songsBook, verseContainer, song, keyContainer, plusSong, zeroVerse) => {
+
+  if (Object.keys(songsBook).length - 1 > song) {
+  
+    // start a new song with the first verse
+    const verseIndex = 0
+    zeroVerse()
+
+    // next song
+    // ++song
+    plusSong()
+    let songIndex = song
+    ++ songIndex
+
+    // loadLyrics(songsBook, true, false)
+    loadLyrics(songsBook, true, false, verseContainer, songIndex, verseIndex, keyContainer, 'lyrics')
+    
+  }
+
+}
+
+const arrowLeft = (songsBook, verseContainer, song, keyContainer, minusSong, zeroVerse) => {
+
+  if (song > 1) {
+    
+    // start a new song with the first verse
+    const verseIndex = 0
+    zeroVerse()
+    
+    // prevoius song
+    // --song
+    minusSong()
+    let songIndex = song
+    --songIndex
+
+    // loadLyrics(songsBook, true, false)
+    loadLyrics(songsBook, true, false, verseContainer, songIndex, verseIndex, keyContainer, 'lyrics')
+
+  }
+
+}
+
+const arrowDown = (songsBook, verseContainer, song, verse, keyContainer, plusVerse, lyrics) => {
+
+  if (songsBook[song][lyrics].length - 1 > verse) {
+    
+    // next verse
+    let verseIndex = verse
+    ++verseIndex
+    plusVerse()    
+
+    // loadLyrics(songsBook, false, false)
+    loadLyrics(songsBook, false, false, verseContainer, song, verseIndex, keyContainer, 'lyrics')
+
+  }
+
+}
+
+const arrowUp = (songsBook, verseContainer, song, verse, keyContainer, minusVerse) => {
+
+  if (verse > 0) {
+    
+    // previous verse
+    let verseIndex = verse
+    --verseIndex
+    minusVerse()
+
+    // loadLyrics(songsBook, false, true)
+    loadLyrics(songsBook, false, true, verseContainer, song, verseIndex, keyContainer, 'lyrics')
+
+  }
+  
+}
+
+export {
+    loadLyrics,
+    arrowDown,
+    arrowLeft,
+    arrowRight,
+    arrowUp
+}
