@@ -1,4 +1,5 @@
 import songsBook from './data/songsBook.js'
+import {playlist, add, remove} from './functionality/playList.js'
 
 // variable iterate lyrics[] to show different verses of the song
 let verse = 0;
@@ -21,6 +22,12 @@ const minusSong = () => {
   --song
 }
 
+// load all the songs or the playlist
+let singing = songsBook
+
+// new playlist will start if functionallity is active
+let playlistActive = false
+
 // containers order in html matters!!!
 // -----------------------------------
 
@@ -36,14 +43,19 @@ const verseDotsContainer = verseContainer.nextElementSibling
 // -----------------------------------
 // containers order in html matters!!!
 
+const setSinging = () => {
+  singing = playlistActive ? playlist : songsBook
+}
+
 
 // programm starts here
 // --------------------
 
 import { loadLyrics, arrowDown, arrowLeft, arrowRight, arrowUp } from './functionality/loadLyrics.js'
+// import { add } from './functionality/playList.js';
 
 // check if should be load the songsBook or the playlist obj ***
-loadLyrics(songsBook, true, false, verseContainer, song, verse, keyContainer, 'lyrics')
+loadLyrics(singing, true, false, verseContainer, song, verse, keyContainer, 'lyrics')
 
 // event listeners commands
 // ------------------------
@@ -51,23 +63,42 @@ document.addEventListener('keydown', function(){
 
   switch (event.key) {
     case 'ArrowRight':
-      arrowRight(songsBook, verseContainer, song, keyContainer, plusSong, zeroVerse)
+      arrowRight(singing, verseContainer, song, keyContainer, plusSong, zeroVerse)   // next song
       break;
     
     case 'ArrowLeft':
-      arrowLeft(songsBook, verseContainer, song, keyContainer, minusSong, zeroVerse)
+      arrowLeft(singing, verseContainer, song, keyContainer, minusSong, zeroVerse)   // previous song
       break;
 
     case 'ArrowDown':
-      arrowDown(songsBook, verseContainer, song, verse, keyContainer, plusVerse, 'lyrics')
+      arrowDown(singing, verseContainer, song, verse, keyContainer, plusVerse, 'lyrics')   // next verse
       break;
     
     case 'ArrowUp':
-      arrowUp(songsBook, verseContainer, song, verse, keyContainer, minusVerse)
+      arrowUp(singing, verseContainer, song, verse, keyContainer, minusVerse)   // previous verse
       break;
 
     case 'k':
-      keyContainer.classList.toggle('showHide')
+      keyContainer.classList.toggle('showHide')   // show/hide key of the song
+      break;
+
+    case 'p':
+      playlistActive = !playlistActive    // toogle start/stop new playlist
+      break;
+
+    case 'a':
+      add(singing[song], song, playlistActive)    // add song to playlist
+      console.log(playlist)
+      break;
+
+    case 'r':
+      remove(singing[song], song, playlistActive)    // remove song to playlist
+      console.log(playlist)
+      break;
+
+    case 's':
+      setSinging()
+      console.log(singing)
       break;
   
     default:

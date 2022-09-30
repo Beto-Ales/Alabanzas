@@ -9,6 +9,7 @@
     keyShow()    *** in progress / done ***
 
     implement modularity    *** in progress ***
+    implement playlist    *** in progress ***
 
     [variable, setVariable] decide to pass all the songs or playlist
 
@@ -40,7 +41,7 @@ how it works
             }                                               indicating the progress of one particular song
         }
 
-dots() removes previous bullets if we start a new song, & place new bullets in regard to the amount of verses of the new song.
+dots() removes previous bullets if we start a new song, & place new bullets considering the amount of verses of the new song.
 
     it will colored the bullets of the verses already displayed including the current bullet verse.
 

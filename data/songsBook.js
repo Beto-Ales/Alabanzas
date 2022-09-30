@@ -986,7 +986,7 @@ const songsBook = {
       </h1>`,
     ]
   },
-  30: {}
+  
 }
 
 export default songsBook

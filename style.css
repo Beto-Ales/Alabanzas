@@ -1,11 +1,13 @@
 body {
   font-family: "Verdana", Arial, Helvetica, sans-serif;
   text-align: center;
+  background-color: #dfd2c2;
 }
 
 h1 {
   /* font-size: 5em; */
   font-size: 3.9vw;
+  color: #182035;
 }
 
 .dot {
@@ -13,12 +15,14 @@ h1 {
   width: 1em;
   clip-path: circle(50%);
   background-color: #bbb;
+  /* background-color: #494949; */
   display: inline-block;
   margin: 0 1em;
 }
 
 .colored {
-  background-color: coral;
+  /* background-color: coral; */
+  background-color: #b73a42;
 }
 
 #verseDotsContainer {
@@ -34,7 +38,10 @@ h1 {
   /* width: 2em;
     height: 2em;
     margin: auto; */
-  color: #ff5722;
+  /* color: #ff5722; */
+  /* color: #b73a42; */
+  /* color: #3b8bc0; */
+  color: #2aa196;
   font-weight: bolder;
   font-size: 3vw;
 }

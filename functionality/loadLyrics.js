@@ -176,7 +176,7 @@ const loadLyrics = (songsBook, changeSong, keyUp, verseContainer, song, verse, k
 
 const arrowRight = (songsBook, verseContainer, song, keyContainer, plusSong, zeroVerse) => {
 
-  if (Object.keys(songsBook).length - 1 > song) {
+  if (Object.keys(songsBook).length > song) {
   
     // start a new song with the first verse
     const verseIndex = 0
