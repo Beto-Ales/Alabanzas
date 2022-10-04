@@ -1,6 +1,33 @@
 import songsBook from './data/songsBook.js'
 import {playlist, add, remove} from './functionality/playList.js'
 
+const controllLyrics = {
+  song: 0,
+  verse: 0,
+  
+  // set song
+  nextSong() {
+    ++this.song
+  },
+  previousSong() {
+    --this.song
+  },
+  restartSong() {
+    this.song = 0
+  },
+
+  // set verse
+  nextVerse() {
+    ++this.verse
+  },
+  previousVerse() {
+    --this.verse
+  },
+  restartVerse() {
+    this.verse = 0
+  }
+}
+
 // variable iterate lyrics[] to show different verses of the song
 let verse = 0;
 const zeroVerse = () => {
@@ -48,7 +75,7 @@ const setSinging = () => {
 }
 
 
-// programm starts here
+// program starts here
 // --------------------
 
 import { loadLyrics, arrowDown, arrowLeft, arrowRight, arrowUp } from './functionality/loadLyrics.js'
@@ -106,6 +133,21 @@ document.addEventListener('keydown', function(){
   }
 
 })
+
+// import ListArray from './functionality/list.js';
+
+// // const beto = new ListArray()
+// // replace songsbook
+// const betoArray = new ListArray()
+
+// betoArray.addSong('0', 'beto arr')
+// betoArray.addSong('1', 'beto arr')
+// betoArray.addSong('2', 'beto arr')
+
+// betoArray.removeSong(1)
+
+// console.log(betoArray.songs)
+// console.log(betoArray.songs[0])
 
 
 // before github
