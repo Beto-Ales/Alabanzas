@@ -1,3 +1,26 @@
+04/10/22
+
+script.js
+
+    line 5 convert variables & setters to object
+    line 26 & 29 find solution to singing & playlistActive variables mechanism
+    line 31 containers (pay atention to order). move to module?
+    line 62 event listener move to module?
+    line 110 replace songsBook with List object
+
+03/10/22
+
+class
+
+    internal id generator() not needed
+    active boolean
+
+    different lists
+
+        all the songs
+        playlist
+        lists by key
+
 08/09/22
 
     loadLyrics()
