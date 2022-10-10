@@ -1,3 +1,11 @@
+05/10/22
+
+unify criteria
+
+    variable song which index the song to be display starts with value 1 becouse the songs obj starts with first element id 1. then when we create an array containing the ids of the selected songs it will be 0based & the song variable wont work. change the hole obj ids starting from 0 & then the variable song tarting from 0?
+
+    songsBook start with pair key value, key: 0 value {}
+
 04/10/22
 
 script.js

@@ -174,24 +174,25 @@ const loadLyrics = (songsBook, changeSong, keyUp, verseContainer, song, verse, k
 
 }
 
-const arrowRight = (songsBook, verseContainer, song, keyContainer, plusSong, zeroVerse) => {
+const arrowRight = (songsBook, verseContainer, song, verse, keyContainer, plusSong, zeroVerse) => {
 
-  if (Object.keys(songsBook).length > song) {
+  // if (Object.keys(songsBook).length > song) {
   
-    // start a new song with the first verse
-    const verseIndex = 0
-    zeroVerse()
+  //   console.log(zeroVerse)
+  //   // start a new song with the first verse
+  //   const verseIndex = 0
+  //   zeroVerse()
 
-    // next song
-    // ++song
-    plusSong()
-    let songIndex = song
-    ++ songIndex
+  //   // next song
+  //   // ++song
+  //   plusSong()
+  //   let songIndex = song
+  //   ++ songIndex
 
     // loadLyrics(songsBook, true, false)
-    loadLyrics(songsBook, true, false, verseContainer, songIndex, verseIndex, keyContainer, 'lyrics')
+    loadLyrics(songsBook, true, false, verseContainer, song, verse, keyContainer, 'lyrics')
     
-  }
+  // }
 
 }
 

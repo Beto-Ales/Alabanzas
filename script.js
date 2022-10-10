@@ -1,6 +1,8 @@
-import songsBook from './data/songsBook.js'
-import {playlist, add, remove} from './functionality/playList.js'
+// import songsBook from './data/songsBook.js'
+import allSongs from './functionality/test.js'
+// import {playlist, add, remove} from './functionality/playList.js'
 
+// variables and setVariables to index song & verse
 const controllLyrics = {
   song: 0,
   verse: 0,
@@ -28,32 +30,39 @@ const controllLyrics = {
   }
 }
 
+// idea
+// ----
+// create let = [] and push the id of the song we want to add to playlist
+// then iterate the array 0 based to select songs by id
+
+
+
 // variable iterate lyrics[] to show different verses of the song
-let verse = 0;
-const zeroVerse = () => {
-  verse = 0
-}
-const plusVerse = () => {
-  ++verse
-}
-const minusVerse = () => {
-  --verse
-}
+// let verse = 0;
+// const zeroVerse = () => {
+//   verse = 0
+// }
+// const plusVerse = () => {
+//   ++verse
+// }
+// const minusVerse = () => {
+//   --verse
+// }
 
-// variable indexes differents songs
-let song = 1;
-const plusSong = () => {
-  ++song
-}
-const minusSong = () => {
-  --song
-}
+// // variable indexes differents songs
+// let song = 1;
+// const plusSong = () => {
+//   ++song
+// }
+// const minusSong = () => {
+//   --song
+// }
 
-// load all the songs or the playlist
-let singing = songsBook
+// // load all the songs or the playlist
+// let singing = songsBook
 
-// new playlist will start if functionallity is active
-let playlistActive = false
+// // new playlist will start if functionallity is active
+// let playlistActive = false
 
 // containers order in html matters!!!
 // -----------------------------------
@@ -70,10 +79,43 @@ const verseDotsContainer = verseContainer.nextElementSibling
 // -----------------------------------
 // containers order in html matters!!!
 
-const setSinging = () => {
-  singing = playlistActive ? playlist : songsBook
+
+
+
+
+// const setSinging = () => {
+//   singing = playlistActive ? playlist : songsBook
+// }
+
+const nextSong = () => {
+  if (Object.keys(allSongs).length - 1 > controllLyrics.song) {
+    controllLyrics.nextSong()
+    controllLyrics.restartVerse() // start a new song with the first verse
+    loadLyrics(allSongs, true, false, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, 'lyrics')
+  }
 }
 
+const previousSong = () => {
+  if (controllLyrics.song > 0) {
+    controllLyrics.previousSong()
+    controllLyrics.restartVerse()
+    loadLyrics(allSongs, true, false, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, 'lyrics')
+  }
+}
+
+const nextVerse = () => {
+  if (allSongs[controllLyrics.song]['lyrics'].length - 1 > controllLyrics.verse) {
+    controllLyrics.nextVerse()
+    loadLyrics(allSongs, false, false, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, 'lyrics')
+  }
+}
+
+const previousVerse = () => {
+  if (controllLyrics.verse > 0) {
+    controllLyrics.previousVerse()
+    loadLyrics(allSongs, false, true, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, 'lyrics')
+  }
+}
 
 // program starts here
 // --------------------
@@ -82,7 +124,7 @@ import { loadLyrics, arrowDown, arrowLeft, arrowRight, arrowUp } from './functio
 // import { add } from './functionality/playList.js';
 
 // check if should be load the songsBook or the playlist obj ***
-loadLyrics(singing, true, false, verseContainer, song, verse, keyContainer, 'lyrics')
+loadLyrics(allSongs, true, false, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, 'lyrics')
 
 // event listeners commands
 // ------------------------
@@ -90,19 +132,22 @@ document.addEventListener('keydown', function(){
 
   switch (event.key) {
     case 'ArrowRight':
-      arrowRight(singing, verseContainer, song, keyContainer, plusSong, zeroVerse)   // next song
+      nextSong()
       break;
     
     case 'ArrowLeft':
-      arrowLeft(singing, verseContainer, song, keyContainer, minusSong, zeroVerse)   // previous song
+      // arrowLeft(allSongs, verseContainer, controllLyrics.song, keyContainer, controllLyrics.previousSong, controllLyrics.restartVerse)   // previous song
+      previousSong()
       break;
 
     case 'ArrowDown':
-      arrowDown(singing, verseContainer, song, verse, keyContainer, plusVerse, 'lyrics')   // next verse
+      // arrowDown(allSongs, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, controllLyrics.nextVerse, 'lyrics')   // next verse
+      nextVerse()
       break;
     
     case 'ArrowUp':
-      arrowUp(singing, verseContainer, song, verse, keyContainer, minusVerse)   // previous verse
+      // arrowUp(allSongs, verseContainer, controllLyrics.song, controllLyrics.verse, keyContainer, controllLyrics.previousVerse)   // previous verse
+      previousVerse()
       break;
 
     case 'k':
@@ -119,7 +164,7 @@ document.addEventListener('keydown', function(){
       break;
 
     case 'r':
-      remove(singing[song], song, playlistActive)    // remove song to playlist
+      remove(singing[song], song, playlistActive)    // remove song from playlist
       console.log(playlist)
       break;
 
