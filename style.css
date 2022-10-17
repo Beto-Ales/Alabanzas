@@ -28,7 +28,8 @@ h1 {
 #verseDotsContainer {
   position: absolute;
   /* top: 39em; */
-  bottom: 1em;
+  /* bottom: 1em; */
+  bottom: 5em;
   width: 99%;
   text-align: center;
 }

@@ -1,3 +1,9 @@
+11/10/22
+
+controllLyrics
+
+    add validators to increment/decrement variables song & verse
+
 05/10/22
 
 unify criteria
@@ -79,3 +85,10 @@ dots() removes previous bullets if we start a new song, & place new bullets cons
 the commands for controlling the actions are key events: arrows & 'k' key. these events call loadLyrics() & will increment or decrement
 
     the variables verse & song. 'k' key will show/hide the key of the song.
+
+Defining getters and setters
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#defining_getters_and_setters
+
+controll lyrics
+
+    add playlists & song index getter
