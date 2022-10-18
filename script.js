@@ -22,6 +22,41 @@ const controllLyrics = {
   // switch beetween lists
   activeList: 'keyA',
 
+  // active list setter
+  set choosePlaylist(listNumber) {
+    if (listNumber === '0') {
+      this.activeList = ''
+    }
+
+    if (listNumber === '1') {
+      this.activeList = this.playList.length > 0 ? 'playList' : ''  
+    }
+
+    if (listNumber === '2') {
+      this.activeList = this.keyA.length > 0 ? 'keyA' : ''  
+    }
+
+    if (listNumber === '3') {
+      this.activeList = this.keyC.length > 0 ? 'keyC' : ''  
+    }
+
+    if (listNumber === '4') {
+      this.activeList = this.keyD.length > 0 ? 'keyD' : ''  
+    }
+
+    if (listNumber === '5') {
+      this.activeList = this.keyE.length > 0 ? 'keyE' : ''  
+    }
+
+    if (listNumber === '6') {
+      this.activeList = this.keyF.length > 0 ? 'keyF' : ''  
+    }
+
+    if (listNumber === '7') {
+      this.activeList = this.keyG.length > 0 ? 'keyG' : ''  
+    }
+  },
+
   // song index getter
   get songIndex() {
     let index
@@ -155,6 +190,11 @@ const previousVerse = () => {
   }
 }
 
+const chooseList = (key) => {
+  controllLyrics.choosePlaylist = key
+  loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
+}
+
 // program starts here
 // --------------------
 
@@ -167,43 +207,58 @@ loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, cont
 // event listeners commands
 // ------------------------
 document.addEventListener('keydown', function(){
+  // regExp
+  const playlistNumber = /[0-7]/
+  const ArrowRight = /ArrowRight/
+  const ArrowLeft = /ArrowLeft/  
+  const ArrowDown = /ArrowDown/
+  const ArrowUp = /ArrowUp/
+  const keyK = /k/
 
-  switch (event.key) {
-    case 'ArrowRight':
+  // switch (event.key) {
+    switch (true) {
+    case ArrowRight.test(event.key):
       nextSong()
       break;
     
-    case 'ArrowLeft':
+    case ArrowLeft.test(event.key):
       
       previousSong()
       break;
 
-    case 'ArrowDown':
+    case ArrowDown.test(event.key):
       nextVerse()
       break;
     
-    case 'ArrowUp':
+    case ArrowUp.test(event.key):
       previousVerse()
       break;
 
-    case 'k':
+    case keyK.test(event.key):
       keyContainer.classList.toggle('showHide')   // show/hide key of the song
       break;
 
-    case 'p':
-      playlistActive = !playlistActive    // toogle start/stop new playlist
+    // select playlists 1,2,3,4,5
+    case playlistNumber.test(event.key):
+      // playlistActive = !playlistActive    // toogle start/stop new playlist
+      // controllLyrics.choosePlaylist(event.key)
+      // controllLyrics.choosePlaylist = event.key
+      chooseList(event.key)
       break;
 
+    // replace with +/- or p/m
     case 'a':
       add(singing[song], song, playlistActive)    // add song to playlist
       console.log(playlist)
       break;
 
+    // replace with +/- or p/m
     case 'r':
       remove(singing[song], song, playlistActive)    // remove song from playlist
       console.log(playlist)
       break;
 
+    // remove this?
     case 's':
       setSinging()
       console.log(singing)
