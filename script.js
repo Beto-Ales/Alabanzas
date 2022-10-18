@@ -10,6 +10,8 @@ const controllLyrics = {
   verse: 0,
 
   // other playlists
+  // each play list contains index of allSongs{}
+  allSongs: [0,1,2,3,4,5,6,7,8,9],
   playList: [4,8],
   keyA: [0,8,10,27],
   keyC: [5,9,11,15],
@@ -20,85 +22,100 @@ const controllLyrics = {
   // keyList: [],
 
   // switch beetween lists
-  activeList: 'keyA',
+  activeList: [0],
 
   // active list setter
   set choosePlaylist(listNumber) {
     if (listNumber === '0') {
-      this.activeList = ''
+      this.activeList = this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '1') {
-      this.activeList = this.playList.length > 0 ? 'playList' : ''  
+      this.activeList = this.keyA.length > 0 ? this.keyA : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '2') {
-      this.activeList = this.keyA.length > 0 ? 'keyA' : ''  
+      this.activeList = this.keyC.length > 0 ? this.keyC : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '3') {
-      this.activeList = this.keyC.length > 0 ? 'keyC' : ''  
+      this.activeList = this.keyD.length > 0 ? this.keyD : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '4') {
-      this.activeList = this.keyD.length > 0 ? 'keyD' : ''  
+      this.activeList = this.keyE.length > 0 ? this.keyE : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '5') {
-      this.activeList = this.keyE.length > 0 ? 'keyE' : ''  
+      this.activeList = this.keyF.length > 0 ? this.keyF : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '6') {
-      this.activeList = this.keyF.length > 0 ? 'keyF' : ''  
+      this.activeList = this.keyG.length > 0 ? this.keyG : this.allSongs
+      this.song = 0
     }
 
     if (listNumber === '7') {
-      this.activeList = this.keyG.length > 0 ? 'keyG' : ''  
+      this.activeList = this.playList.length > 0 ? this.playList : this.allSongs
+      this.song = 0
     }
   },
 
   // song index getter
   get songIndex() {
-    let index
-    switch (this.activeList) {
-      case 'playList':
-        index = this.playList[this.song]
-        break;
+    // let index
+    // switch (this.activeList) {
+    //   case this.allSongs:
+    //     index = this.allSongs[this.song]
+    //     break;
 
-      case 'keyA':
-        index = this.keyA[this.song]
-        break;
+    //   case this.playList:
+    //     index = this.playList[this.song]
+    //     break;
 
-      case 'keyC':
-        index = this.keyC[this.song]
-        break;
+    //   case this.keyA:
+    //     index = this.keyA[this.song]
+    //     break;
 
-      case 'keyD':
-        index = this.keyD[this.song]
-        break;
+    //   case this.keyC:
+    //     index = this.keyC[this.song]
+    //     break;
 
-      case 'keyE':
-        index = this.keyE[this.song]
-        break;
+    //   case this.keyD:
+    //     index = this.keyD[this.song]
+    //     break;
 
-      case 'keyF':
-        index = this.keyF[this.song]
-        break;
+    //   case this.keyE:
+    //     index = this.keyE[this.song]
+    //     break;
 
-      case 'keyG':
-        index = this.keyG[this.song]
-        break;
+    //   case this.keyF:
+    //     index = this.keyF[this.song]
+    //     break;
+
+    //   case this.keyG:
+    //     index = this.keyG[this.song]
+    //     break;
     
-      default:
-        index = this.song
-        break;
-    }
-    return index
+    //   default:
+    //     index = this.allSongs[this.song]
+    //     break;
+    // }
+    // return index
+    return this.activeList[this.song]
   },
   
   // set song
   nextSong() {
-    ++this.song
+    if (this.activeList.length - 1 > this.song) {
+      ++this.song  
+    }
   },
   previousSong() {
     --this.song
