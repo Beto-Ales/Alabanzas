@@ -2902,7 +2902,85 @@ const keyG = {
   }
 }
 
-export default allSongs
+// export default allSongs
+
+class ControllLyrics {
+  constructor(songBook) {
+    this.playList = [
+      this.allSongs = [],
+      this.keyA = [],
+      this.keyC = [],
+      this.keyD = [],
+      this.keyE = [],
+      this.keyF = [],
+      this.keyG = [],
+    ]
+    for (const key in songBook) {
+      this.playList[0].push(key)
+      songBook[key]['key'] === 'A' && this.playList[1].push(key)
+      songBook[key]['key'] === 'C' && this.playList[2].push(key)
+      songBook[key]['key'] === 'D' && this.playList[3].push(key)
+      songBook[key]['key'] === 'E' && this.playList[4].push(key)
+      songBook[key]['key'] === 'F' && this.playList[5].push(key)
+      songBook[key]['key'] === 'G' && this.playList[6].push(key)
+    }
+  }
+  song = 0
+  verse = 0
+  playList = []
+  // switch beetween lists
+  activeList = this.playList[0]
+
+  // active list setter
+  set choosePlaylist(listNumber) {
+    if(listNumber > -1 && listNumber < this.playList.length) {
+      this.activeList = this.playList[listNumber]
+    }
+  }
+
+  // song index getter
+  get songIndex() {
+    return this.activeList[this.song]
+  }
+
+  // constroll song
+  nextSong() {
+    if (this.activeList.length - 1 > this.song) {
+      ++this.song  
+    }
+  }
+  previousSong() {
+    --this.song
+  }
+  restartSong() {
+    this.song = 0
+  }
+
+  // constroll verse
+  nextVerse() {
+    ++this.verse
+  }
+  previousVerse() {
+    --this.verse
+  }
+  restartVerse() {
+    this.verse = 0
+  }
+}
+
+const beto = new ControllLyrics(allSongs)
+beto.choosePlaylist = 2
+console.log('first song', beto.songIndex)
+beto.nextSong()
+console.log('next song', beto.songIndex)
+beto.nextSong()
+beto.nextSong()
+beto.nextSong()
+beto.nextSong()
+beto.nextSong()
+beto.nextSong()
+console.log('next song', beto.songIndex)
+console.log(beto)
 
 // console.log(`${Object.entries(keyA).length + 
 //     Object.entries(keyC).length +
