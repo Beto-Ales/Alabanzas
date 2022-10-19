@@ -1,140 +1,143 @@
 // import songsBook from './data/songsBook.js'
-import allSongs from './functionality/test.js'
+import { allSongs, ControllLyrics } from './functionality/test.js'
 import { loadLyrics } from './functionality/loadLyrics.js'
 // import {playlist, add, remove} from './functionality/playList.js'
 
 // variables and setVariables to index song & verse
-const controllLyrics = {
-  // song & verse indexes
-  song: 0,
-  verse: 0,
+// const controllLyrics = {
+//   // song & verse indexes
+//   song: 0,
+//   verse: 0,
 
-  // other playlists
-  // each play list contains index of allSongs{}
-  allSongs: [0,1,2,3,4,5,6,7,8,9],
-  playList: [4,8],
-  keyA: [0,8,10,27],
-  keyC: [5,9,11,15],
-  keyD: [4,13,16,18,26],
-  keyE: [2,14,17],
-  keyF: [20,21,22,24],
-  keyG: [1,3,6,7,12,19,23],
-  // keyList: [],
+//   // other playlists
+//   // each play list contains index of allSongs{}
+//   allSongs: [0,1,2,3,4,5,6,7,8,9],
+//   playList: [4,8],
+//   keyA: [0,8,10,27],
+//   keyC: [5,9,11,15],
+//   keyD: [4,13,16,18,26],
+//   keyE: [2,14,17],
+//   keyF: [20,21,22,24],
+//   keyG: [1,3,6,7,12,19,23],
+//   // keyList: [],
 
-  // switch beetween lists
-  activeList: [0],
+//   // switch beetween lists
+//   activeList: [0],
 
-  // active list setter
-  set choosePlaylist(listNumber) {
-    if (listNumber === '0') {
-      this.activeList = this.allSongs
-      this.song = 0
-    }
+//   // active list setter
+//   set choosePlaylist(listNumber) {
+//     if (listNumber === '0') {
+//       this.activeList = this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '1') {
-      this.activeList = this.keyA.length > 0 ? this.keyA : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '1') {
+//       this.activeList = this.keyA.length > 0 ? this.keyA : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '2') {
-      this.activeList = this.keyC.length > 0 ? this.keyC : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '2') {
+//       this.activeList = this.keyC.length > 0 ? this.keyC : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '3') {
-      this.activeList = this.keyD.length > 0 ? this.keyD : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '3') {
+//       this.activeList = this.keyD.length > 0 ? this.keyD : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '4') {
-      this.activeList = this.keyE.length > 0 ? this.keyE : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '4') {
+//       this.activeList = this.keyE.length > 0 ? this.keyE : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '5') {
-      this.activeList = this.keyF.length > 0 ? this.keyF : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '5') {
+//       this.activeList = this.keyF.length > 0 ? this.keyF : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '6') {
-      this.activeList = this.keyG.length > 0 ? this.keyG : this.allSongs
-      this.song = 0
-    }
+//     if (listNumber === '6') {
+//       this.activeList = this.keyG.length > 0 ? this.keyG : this.allSongs
+//       this.song = 0
+//     }
 
-    if (listNumber === '7') {
-      this.activeList = this.playList.length > 0 ? this.playList : this.allSongs
-      this.song = 0
-    }
-  },
+//     if (listNumber === '7') {
+//       this.activeList = this.playList.length > 0 ? this.playList : this.allSongs
+//       this.song = 0
+//     }
+//   },
 
-  // song index getter
-  get songIndex() {
-    // let index
-    // switch (this.activeList) {
-    //   case this.allSongs:
-    //     index = this.allSongs[this.song]
-    //     break;
+//   // song index getter
+//   get songIndex() {
+//     // let index
+//     // switch (this.activeList) {
+//     //   case this.allSongs:
+//     //     index = this.allSongs[this.song]
+//     //     break;
 
-    //   case this.playList:
-    //     index = this.playList[this.song]
-    //     break;
+//     //   case this.playList:
+//     //     index = this.playList[this.song]
+//     //     break;
 
-    //   case this.keyA:
-    //     index = this.keyA[this.song]
-    //     break;
+//     //   case this.keyA:
+//     //     index = this.keyA[this.song]
+//     //     break;
 
-    //   case this.keyC:
-    //     index = this.keyC[this.song]
-    //     break;
+//     //   case this.keyC:
+//     //     index = this.keyC[this.song]
+//     //     break;
 
-    //   case this.keyD:
-    //     index = this.keyD[this.song]
-    //     break;
+//     //   case this.keyD:
+//     //     index = this.keyD[this.song]
+//     //     break;
 
-    //   case this.keyE:
-    //     index = this.keyE[this.song]
-    //     break;
+//     //   case this.keyE:
+//     //     index = this.keyE[this.song]
+//     //     break;
 
-    //   case this.keyF:
-    //     index = this.keyF[this.song]
-    //     break;
+//     //   case this.keyF:
+//     //     index = this.keyF[this.song]
+//     //     break;
 
-    //   case this.keyG:
-    //     index = this.keyG[this.song]
-    //     break;
+//     //   case this.keyG:
+//     //     index = this.keyG[this.song]
+//     //     break;
     
-    //   default:
-    //     index = this.allSongs[this.song]
-    //     break;
-    // }
-    // return index
-    return this.activeList[this.song]
-  },
+//     //   default:
+//     //     index = this.allSongs[this.song]
+//     //     break;
+//     // }
+//     // return index
+//     return this.activeList[this.song]
+//   },
   
-  // set song
-  nextSong() {
-    if (this.activeList.length - 1 > this.song) {
-      ++this.song  
-    }
-  },
-  previousSong() {
-    --this.song
-  },
-  restartSong() {
-    this.song = 0
-  },
+//   // set song
+//   nextSong() {
+//     if (this.activeList.length - 1 > this.song) {
+//       ++this.song  
+//     }
+//   },
+//   previousSong() {
+//     --this.song
+//   },
+//   restartSong() {
+//     this.song = 0
+//   },
 
-  // set verse
-  nextVerse() {
-    ++this.verse
-  },
-  previousVerse() {
-    --this.verse
-  },
-  restartVerse() {
-    this.verse = 0
-  }
-}
+//   // set verse
+//   nextVerse() {
+//     ++this.verse
+//   },
+//   previousVerse() {
+//     --this.verse
+//   },
+//   restartVerse() {
+//     this.verse = 0
+//   }
+// }
+
+const controllLyrics = new ControllLyrics(allSongs)
+// console.log(controllLyrics)
 
 // idea
 // ----
@@ -180,7 +183,7 @@ const nextSong = () => {
     controllLyrics.nextSong()
     controllLyrics.restartVerse() // start a new song with the first verse
     loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
-    console.log(controllLyrics.songIndex)
+    // console.log(controllLyrics.songIndex)
   }
 }
 
@@ -189,12 +192,12 @@ const previousSong = () => {
     controllLyrics.previousSong()
     controllLyrics.restartVerse()
     loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
-    console.log(controllLyrics.songIndex)
+    // console.log(controllLyrics.songIndex)
   }
 }
 
 const nextVerse = () => {
-  if (allSongs[controllLyrics.song]['lyrics'].length - 1 > controllLyrics.verse) {
+  if (allSongs[controllLyrics.songIndex]['lyrics'].length - 1 > controllLyrics.verse) {
     controllLyrics.nextVerse()
     loadLyrics(allSongs, false, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
   }
@@ -225,7 +228,7 @@ loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, cont
 // ------------------------
 document.addEventListener('keydown', function(){
   // regExp
-  const playlistNumber = /[0-7]/
+  const playlistNumber = /[0-6]/
   const ArrowRight = /ArrowRight/
   const ArrowLeft = /ArrowLeft/  
   const ArrowDown = /ArrowDown/
