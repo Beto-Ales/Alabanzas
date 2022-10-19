@@ -2902,10 +2902,17 @@ const keyG = {
   }
 }
 
-// export default allSongs
+
 
 class ControllLyrics {
   constructor(songBook) {
+    // data
+    this.songBook = songBook
+
+    // switch beetween lists
+    this.activeList
+
+    // all the playlists
     this.playList = [
       this.allSongs = [],
       this.keyA = [],
@@ -2915,42 +2922,53 @@ class ControllLyrics {
       this.keyF = [],
       this.keyG = [],
     ]
-    for (const key in songBook) {
+    for (const key in this.songBook) {
       this.playList[0].push(key)
-      songBook[key]['key'] === 'A' && this.playList[1].push(key)
-      songBook[key]['key'] === 'C' && this.playList[2].push(key)
-      songBook[key]['key'] === 'D' && this.playList[3].push(key)
-      songBook[key]['key'] === 'E' && this.playList[4].push(key)
-      songBook[key]['key'] === 'F' && this.playList[5].push(key)
-      songBook[key]['key'] === 'G' && this.playList[6].push(key)
+      this.songBook[key]['key'] === 'A' && this.playList[1].push(key)
+      this.songBook[key]['key'] === 'C' && this.playList[2].push(key)
+      this.songBook[key]['key'] === 'D' && this.playList[3].push(key)
+      this.songBook[key]['key'] === 'E' && this.playList[4].push(key)
+      this.songBook[key]['key'] === 'F' && this.playList[5].push(key)
+      this.songBook[key]['key'] === 'G' && this.playList[6].push(key)
     }
+    this.activeList = this.playList[0]
   }
   song = 0
   verse = 0
-  playList = []
+  // playList = []
   // switch beetween lists
-  activeList = this.playList[0]
+  // activeList = this.playList[0]
 
   // active list setter
   set choosePlaylist(listNumber) {
-    if(listNumber > -1 && listNumber < this.playList.length) {
-      this.activeList = this.playList[listNumber]
-    }
+    // if(listNumber > -1 && listNumber < this.playList.length) {
+    //   this.activeList = this.playList[listNumber]
+    // }
+    this.activeList = listNumber > -1 && listNumber < this.playList.length && this.playList[listNumber] || this.playList[0]
+    this.restartSong()
+    this.restartVerse()
   }
 
   // song index getter
   get songIndex() {
+    // console.log(this.activeList)
     return this.activeList[this.song]
   }
 
   // constroll song
   nextSong() {
     if (this.activeList.length - 1 > this.song) {
-      ++this.song  
+      ++this.song
+      this.restartVerse()
     }
+    // this.activeList.length - 1 > this.song && ++this.song
   }
   previousSong() {
-    --this.song
+    if (this.song > 0) {
+      --this.song
+      this.restartVerse()
+    }
+    // this.song > 0 && --this.song
   }
   restartSong() {
     this.song = 0
@@ -2958,29 +2976,46 @@ class ControllLyrics {
 
   // constroll verse
   nextVerse() {
-    ++this.verse
+    // console.log('this.activeList[this.song]', this.activeList[this.song])
+    // ++this.verse
+    // console.log(`this.songBook[this.activeList[this.song]]['lyrics'].length - 1 > this.verse && ++this.verse`, this.songBook[this.activeList[this.song]]['lyrics'].length - 1 > this.verse && ++this.verse)
+    // this.activeList[this.song]['lyrics'].length - 1 > this.verse && ++this.verse
+    this.songBook[this.activeList[this.song]]['lyrics'].length - 1 > this.verse && ++this.verse
   }
   previousVerse() {
-    --this.verse
+    this.verse > 0 && --this.verse
   }
   restartVerse() {
     this.verse = 0
   }
 }
 
-const beto = new ControllLyrics(allSongs)
-beto.choosePlaylist = 2
-console.log('first song', beto.songIndex)
-beto.nextSong()
-console.log('next song', beto.songIndex)
-beto.nextSong()
-beto.nextSong()
-beto.nextSong()
-beto.nextSong()
-beto.nextSong()
-beto.nextSong()
-console.log('next song', beto.songIndex)
-console.log(beto)
+// ------------
+// export default allSongs
+export{
+  allSongs,
+  ControllLyrics
+}
+// ------------
+
+// const beto = new ControllLyrics(allSongs)
+// beto.choosePlaylist = 0
+// console.log('first song', beto.songIndex)
+// beto.nextSong()
+// console.log('next song', beto.songIndex)
+// beto.nextSong()
+// beto.nextSong()
+// beto.nextSong()
+// beto.nextSong()
+// beto.nextSong()
+// beto.nextSong()
+// beto.nextSong()
+// beto.previousSong()
+// beto.previousSong()
+// beto.previousSong()
+// beto.previousSong()
+// console.log('next next song', beto.songIndex)
+// console.log(beto.song)
 
 // console.log(`${Object.entries(keyA).length + 
 //     Object.entries(keyC).length +

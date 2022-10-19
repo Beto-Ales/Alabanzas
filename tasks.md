@@ -89,4 +89,10 @@ the commands for controlling the actions are key events: arrows & 'k' key. these
 Defining getters and setters
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#defining_getters_and_setters
 
-activeList, choosePlaylist, songIndex & nextSong
+replace controllLyrics obj for class
+fix nextverse fnc
+fix regExp playlistNumber
+
+test.js
+
+finish class ControllLyrics
