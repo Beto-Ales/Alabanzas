@@ -149,11 +149,7 @@ const controllLyrics = new ControllLyrics(allSongs)
 // variable iterate lyrics[] to show different verses of the song
 
 
-// // load all the songs or the playlist
-// let singing = songsBook
 
-// // new playlist will start if functionallity is active
-// let playlistActive = false
 
 // containers order in html matters!!!
 // -----------------------------------
@@ -174,16 +170,13 @@ const verseDotsContainer = verseContainer.nextElementSibling
 
 
 
-// const setSinging = () => {
-//   singing = playlistActive ? playlist : songsBook
-// }
+
 
 const nextSong = () => {
-  if (Object.keys(allSongs).length - 1 > controllLyrics.song) {
+  if (Object.keys(allSongs).length - 1 > controllLyrics.songIndex) {
     controllLyrics.nextSong()
     controllLyrics.restartVerse() // start a new song with the first verse
     loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
-    // console.log(controllLyrics.songIndex)
   }
 }
 
@@ -192,7 +185,6 @@ const previousSong = () => {
     controllLyrics.previousSong()
     controllLyrics.restartVerse()
     loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
-    // console.log(controllLyrics.songIndex)
   }
 }
 
@@ -215,6 +207,13 @@ const chooseList = (key) => {
   loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
 }
 
+const removeSong = () => {
+  controllLyrics.removeSongFromList()
+  // controllLyrics.restartSong()
+  controllLyrics.previousSong()
+  loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
+}
+
 // program starts here
 // --------------------
 
@@ -228,12 +227,14 @@ loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, cont
 // ------------------------
 document.addEventListener('keydown', function(){
   // regExp
-  const playlistNumber = /[0-6]/
+  const playlistNumber = /[0-7]/
   const ArrowRight = /ArrowRight/
   const ArrowLeft = /ArrowLeft/  
   const ArrowDown = /ArrowDown/
   const ArrowUp = /ArrowUp/
   const keyK = /k/
+  const add = /a/
+  const remove = /r/
 
   // switch (event.key) {
     switch (true) {
@@ -242,7 +243,6 @@ document.addEventListener('keydown', function(){
       break;
     
     case ArrowLeft.test(event.key):
-      
       previousSong()
       break;
 
@@ -260,34 +260,21 @@ document.addEventListener('keydown', function(){
 
     // select playlists 1,2,3,4,5
     case playlistNumber.test(event.key):
-      // playlistActive = !playlistActive    // toogle start/stop new playlist
-      // controllLyrics.choosePlaylist(event.key)
-      // controllLyrics.choosePlaylist = event.key
       chooseList(event.key)
       break;
 
-    // replace with +/- or p/m
-    case 'a':
-      add(singing[song], song, playlistActive)    // add song to playlist
-      console.log(playlist)
+    case add.test(event.key):
+      controllLyrics.addSongToList()
       break;
 
-    // replace with +/- or p/m
-    case 'r':
-      remove(singing[song], song, playlistActive)    // remove song from playlist
-      console.log(playlist)
+    case remove.test(event.key):
+      // controllLyrics.removeSongFromList()
+      removeSong()
       break;
 
-    // remove this?
-    case 's':
-      setSinging()
-      console.log(singing)
-      break;
-  
     default:
       break;
   }
-
 })
 
 // import ListArray from './functionality/list.js';

@@ -2914,13 +2914,14 @@ class ControllLyrics {
 
     // all the playlists
     this.playList = [
-      this.allSongs = [],
-      this.keyA = [],
-      this.keyC = [],
-      this.keyD = [],
-      this.keyE = [],
-      this.keyF = [],
-      this.keyG = [],
+      this.allSongs = [],   // 0
+      this.keyA = [],       // 1
+      this.keyC = [],       // 2
+      this.keyD = [],       // 3
+      this.keyE = [],       // 4
+      this.keyF = [],       // 5
+      this.keyG = [],       // 6
+      this.ownList = [],    // 7
     ]
     for (const key in this.songBook) {
       this.playList[0].push(key)
@@ -2955,11 +2956,29 @@ class ControllLyrics {
     return this.activeList[this.song]
   }
 
+  addSongToList() {
+    //   ownList     push      current list[   song]
+    this.playList[7].push(this.activeList[this.song])
+    console.log('add')
+    console.log(this.playList[7])
+  }
+
+  removeSongFromList() {
+    this.playList[7].splice(this.playList[7].indexOf(this.activeList[this.song]), 1)
+    if(this.playList[7].length === 0) {
+      this.choosePlaylist = 0
+      console.log(this.activeList)
+    }
+    console.log('remove')
+    console.log(this.playList[7].length)
+  }
+
   // constroll song
   nextSong() {
     if (this.activeList.length - 1 > this.song) {
       ++this.song
       this.restartVerse()
+      console.log('next')
     }
     // this.activeList.length - 1 > this.song && ++this.song
   }
