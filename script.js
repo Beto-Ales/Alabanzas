@@ -210,7 +210,7 @@ const chooseList = (key) => {
 const removeSong = () => {
   controllLyrics.removeSongFromList()
   // controllLyrics.restartSong()
-  controllLyrics.previousSong()
+  // controllLyrics.previousSong() done within remoSongFromList()
   loadLyrics(allSongs, true, false, verseContainer, controllLyrics.songIndex, controllLyrics.verse, keyContainer, 'lyrics')
 }
 

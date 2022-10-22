@@ -2964,13 +2964,22 @@ class ControllLyrics {
   }
 
   removeSongFromList() {
-    this.playList[7].splice(this.playList[7].indexOf(this.activeList[this.song]), 1)
-    if(this.playList[7].length === 0) {
-      this.choosePlaylist = 0
-      console.log(this.activeList)
+    // check if the current song is in my own list
+    if (this.playList[7].indexOf(this.activeList[this.song]) > -1) {
+      // remove current song from my list
+      this.playList[7].splice(this.playList[7].indexOf(this.activeList[this.song]), 1)
+      // if my list is been displayed go to the previous song in my list
+      this.activeList === this.playList[7] && this.previousSong()
+    
+      // if there is no song in my list
+      if(this.playList[7].length === 0) {
+        // display all the songs
+        this.choosePlaylist = 0
+        console.log(this.activeList)
+      }
+      console.log('remove')
+      console.log(this.playList[7].length)
     }
-    console.log('remove')
-    console.log(this.playList[7].length)
   }
 
   // constroll song
