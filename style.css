@@ -6,7 +6,8 @@ body {
 
 h1 {
   /* font-size: 5em; */
-  font-size: 3.9vw;
+  /* font-size: 3.9vw; */
+  font-size: 3.5vw;
   color: #182035;
 }
 
@@ -29,7 +30,7 @@ h1 {
   position: absolute;
   /* top: 39em; */
   /* bottom: 1em; */
-  bottom: 5em;
+  /* bottom: 5em; */
   width: 99%;
   text-align: center;
 }
@@ -45,6 +46,11 @@ h1 {
   color: #2aa196;
   font-weight: bolder;
   font-size: 3vw;
+  height: 3vw;
+}
+
+#lyrics {
+  height: 30vw;
 }
 
 .showHide {
