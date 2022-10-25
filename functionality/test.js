@@ -2987,7 +2987,7 @@ class ControllLyrics {
     if (this.activeList.length - 1 > this.song) {
       ++this.song
       this.restartVerse()
-      console.log('next')
+      // console.log('next')
     }
     // this.activeList.length - 1 > this.song && ++this.song
   }

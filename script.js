@@ -275,7 +275,108 @@ document.addEventListener('keydown', function(){
     default:
       break;
   }
+  // event.preventDefault()   to prevent the default action, which is scrolling and moving the cursor.
 })
+
+// https://jh3y.medium.com/implementing-touch-support-in-javascript-b8e43f267a16
+// https://github.com/ritwickdey/vscode-live-server/blob/HEAD/docs/faqs.md#how-to-access-the-server-from-mobile
+// https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/changedTouches
+// https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
+// https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent#touch_event_types  (preventdefault)
+// https://stackoverflow.com/questions/67770766/replace-keyboard-events-with-mobile-swipes
+
+// the good one
+// https://developer.mozilla.org/en-US/docs/Web/API/Touch/clientX
+
+// make preventdefault work
+// https://medium.com/@Esakkimuthu/passive-event-listeners-5dbb1b011fb1
+
+const mobileLyrics = (touch) => {
+  // console.log(touch)
+  switch (touch) {
+    case 'right':
+      nextSong()
+      break
+
+    case 'left':
+      previousSong()
+      break
+
+    case 'down':
+      nextVerse()
+      break
+
+    case 'up':
+      previousVerse()
+      break
+  
+    default:
+      break
+  }
+}
+
+let axisX
+let axisY
+let result = ['left', 'right', 'up', 'down']
+
+const startTouch = (e) => {
+  axisX = e.touches[0].clientX
+  axisY = e.touches[0].clientY
+  document.addEventListener('touchend', endTouch, {passive: false})
+  e.preventDefault()
+}
+
+const endTouch = (e) => {
+  axisX = e.changedTouches[0].clientX - axisX
+  axisY = e.changedTouches[0].clientY - axisY
+  // convert to positive number
+  const positiveAxisX= axisX < 0 ? axisX * -1 : axisX
+  const positiveAxisY= axisY < 0 ? axisY * -1 : axisY
+  const axisResult = (positiveAxisX > positiveAxisY) ? axisX : axisY
+  result.splice(positiveAxisX > positiveAxisY ? 2 : 0, 2)
+  result.splice(axisResult > 0 ? (1, 1) : 0, 1)
+  // console.log(result[0])
+  mobileLyrics(`${result[0]}`)
+  result = ['left', 'right', 'up', 'down']
+  e.preventDefault()
+}
+
+document.addEventListener('touchstart', startTouch, {passive: false})
+
+
+// document.addEventListener('touchstart', (e) => {
+//   axisX = e.touches[0].clientX
+//   axisY = e.touches[0].clientY
+// }, false)
+
+// document.addEventListener('touchend', (e) => {
+//   const result = ['right', 'left', 'down', 'up']
+//   axisX = e.changedTouches[0].clientX - axisX
+//   axisY = e.changedTouches[0].clientY - axisY
+//   // convert to positive number
+//   const positiveAxisX= axisX < 0 ? axisX * -1 : axisX
+//   const positiveAxisY= axisY < 0 ? axisY * -1 : axisY
+//   const axisResult = (positiveAxisX > positiveAxisY) ? axisX : axisY
+//   result.splice(positiveAxisX > positiveAxisY ? 2 : 0, 2)
+//   result.splice(axisResult > 0 ? (1, 1) : 0, 1)
+  
+//   console.log('axisX', axisX, 'axisY', axisY, 'axisResult', axisResult, 'result', result)
+// }, false)
+
+
+// ----------------------------------------------------------------
+
+
+// const startTouch = e => {
+//   const { touches } = e
+//   console.log('beto')
+//   // document.body.innerHTML = 'beto'
+//   document.body.style.background = 'red'
+// }
+
+// document.addEventListener('touchStart', startTouch)
+
+// ----------------------------------------------------------------
 
 // import ListArray from './functionality/list.js';
 
